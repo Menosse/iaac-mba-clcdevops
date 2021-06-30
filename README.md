@@ -31,7 +31,7 @@ Abra um novo terminal
 > sudo sh server.sh
 
 ### Criar chave ssh e permitir o acesso da maquina iaac na maquina server
-Na maquina iaac e Seguir os passos para criar a chave
+Na maquina iaac, criar a chave
 > ssh-keygen
 
 Copiar a chave
