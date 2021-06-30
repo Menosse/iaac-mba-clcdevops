@@ -28,7 +28,7 @@ Copiar a chave
 > cat /home/vagrant/.ssh/id_rsa.pub
 
 Entrar na maquina server e colar o conteúdo a chave arquivo no arquivo /home/vagrant/.ssh/authorized_keys
-> nano /home/vagrant/.ssh/authorized_keys
+> sudo vi /home/vagrant/.ssh/authorized_keys
 
 Conferir se a chave foi colada corretamente
 > cat /home/vagrant/.ssh/authorized_keys
