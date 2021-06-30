@@ -4,6 +4,8 @@
 > git clone https://github.com/Menosse/iaac-mba-clcdevops.git
 
 > cd iaac-mba-clcdevops 
+
+## passo 1 - Iniciar e configurar as maquinas virtuais 
 ### Iniciar as maquina virtuais
 > vagrant up
 
@@ -48,7 +50,7 @@ Após salvar o arquivo reiniciar o serviço do sshd
 > sudo systemctl restart ssh
 
 
-## passo 1 - Rodar o playbook de instalacao da aplicacao
+## passo 2 - Rodar o playbook de instalacao da aplicacao
 > cd ansible_slackio/
 
 > ansible-playbook playbook.yml 
