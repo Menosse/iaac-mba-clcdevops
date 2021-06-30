@@ -34,6 +34,7 @@ Conferir se a chave foi colada corretamente
 > cat /home/vagrant/.ssh/authorized_keys
 
 Abrir o arquivo "$ sudo vi /etc/ssh/sshd_config" e procurar pela linha "PasswordAuthentication no" e mudar para "yes" e salvar o arquivo.
+> sudo vi /etc/ssh/sshd_config
 
 Após salvar o arquivo reiniciar o serviço do sshd
 > sudo systemctl restart ssh
