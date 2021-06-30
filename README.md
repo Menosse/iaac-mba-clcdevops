@@ -10,8 +10,9 @@
 ### Rodar o script de instalacao do ansible e outras dependencias
 #### Script de inicializacao Maquina iaac
 Abra um novo terminal
->> vagrant ssh iaac
->> cd /vagrant
+> vagrant ssh iaac
+
+> cd /vagrant
 
 > sudo sh iaac.sh
 
