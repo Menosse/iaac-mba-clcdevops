@@ -26,6 +26,7 @@ Na maquina iaac
 > cat /home/vagrant/.ssh/id_rsa.pub
 
 Copiar a chave
+
 Entrar na maquina server e colar o conteúdo a chave arquivo no arquivo /home/vagrant/.ssh/authorized_keys
 
 > nano /home/vagrant/.ssh/authorized_keys
