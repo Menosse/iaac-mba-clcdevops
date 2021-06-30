@@ -24,10 +24,14 @@ Abra um novo terminal
 Na maquina iaac
 > ssh-keygen
 > cat /home/vagrant/.ssh/id_rsa.pub
+
 Copiar a chave
 Entrar na maquina server e colar o conteúdo a chave arquivo no arquivo /home/vagrant/.ssh/authorized_keys
+
 > nano /home/vagrant/.ssh/authorized_keys
+
 Conferir se a chave foi colada corretamente
+
 > cat /home/vagrant/.ssh/authorized_keys
 
 
