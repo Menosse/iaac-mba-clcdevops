@@ -3,6 +3,7 @@
   become: yes
   vars:
     docker_compose_version: "1.27.4"
+    app_path: "/mynewpath/slacko-api"
   # tasks:
   tasks:
   
@@ -73,12 +74,26 @@
   - name: Checkout Project
     ansible.builtin.git:
       repo: 'https://github.com/LeonardoDG2084/iaac_slacko-api.git'
-      dest: /opt/slacko-api
+      dest: "{{ app_path }}"
       version: master
+      update: yes
+      force: yes
+    tags:
+    - update_app
+
+  - name: Set my comment
+    lineinfile:
+      path: "{{ app_path }}/slacko-api.sh"
+      regexp: '^cd'
+      line: cd {{ app_path }}
+    tags:
+    - update_app_
 
   - name: Install Python Requiments
     pip:
-      requirements: /opt/slacko-api/requeriments.txt
+      requirements: "{{ app_path }}/requeriments.txt"
+    tags:
+    - update_app
 
   - name: Create slacko Api Service
     copy:
@@ -92,11 +107,13 @@
       name: slacko-api
       state: started
       enabled: yes
+    tags:
+    - update_app
 
   - name: Move Docker-compose File
     copy:
       src: docker-compose.yaml
-      dest: /opt/slacko-api
+      dest: "{{ app_path }}"
   
   - name: Install Docker Ansible SDK
     pip:
@@ -108,19 +125,22 @@
 
   - name: Run Docker Service
     docker_compose:
-      project_src: /opt/slacko-api
+      project_src: "{{ app_path }}"
       build: yes
     register: output
+    tags:
+    - update_app
 
   - debug:
       var: output
 
   - name: Run App Script
-    shell: /opt/slacko-api/slacko-api.sh >> /opt/slacko-api/slacko-api.log &
+    shell: "{{ app_path }}/slacko-api.sh"
+    shell: "{{ app_path }}/slacko-api.log &"
+    tags:
+    - update_app
   
   - name: Smoke Test
     shell: curl http://10.0.0.11:8000/healthcheck
-
-  
-
-
+    tags:
+    - update_app
