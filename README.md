@@ -33,6 +33,11 @@ Entrar na maquina server e colar o conteúdo a chave arquivo no arquivo /home/va
 Conferir se a chave foi colada corretamente
 > cat /home/vagrant/.ssh/authorized_keys
 
+Abrir o arquivo "$ sudo vi /etc/ssh/sshd_config" e procurar pela linha "PasswordAuthentication no" e mudar para "yes" e salvar o arquivo.
+
+Após salvar o arquivo reiniciar o serviço do sshd
+> sudo systemctl restart ssh
+
 
 ## passo 
 ## passo 2 - 
