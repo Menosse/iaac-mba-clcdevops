@@ -9,10 +9,6 @@ all:
 local:
    vars:
       var_do_inventory: 'Inv-Var'
-      lista_do_inventory:
-        - "Fiat"
-        - "VW"
-        - "Ford" 
    hosts:
       10.0.0.10:
          datacenter: primario

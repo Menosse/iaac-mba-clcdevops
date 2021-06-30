@@ -1,0 +1,126 @@
+- hosts: remoto
+  gather_facts: True
+  become: yes
+  vars:
+    docker_compose_version: "1.27.4"
+  # tasks:
+  tasks:
+  
+    # ### Docker - download it, install it, and set it up
+  - name: Update apt cache
+    apt: update_cache=yes cache_valid_time=3600
+
+  - name: Upgrade all apt packages
+    apt: upgrade=dist
+
+  - name: Install dependencies
+    apt:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+    vars:
+      packages:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg-agent
+    
+  - name: Add an apt signing key for Docker
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add apt repository for stable version
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+      state: present
+
+  - name: Install Docker
+    apt:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+    vars:
+      packages:
+      - docker-ce
+      - docker-ce-cli 
+      - containerd.io
+
+  - name: Add user to docker group
+    user:
+      name: "{{ansible_user}}"
+      group: docker
+
+  - name: Download docker-compose {{ docker_compose_version }}
+    get_url:
+      url : https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+      dest: ~/docker-compose
+      mode: '+x'
+
+  - name: Check docker-compose exists
+    stat: path=~/docker-compose
+    register: docker_compose
+
+  - name: Move docker-compose to /usr/local/bin/docker-compose
+    command: mv ~/docker-compose /usr/local/bin/docker-compose
+    when: docker_compose.stat.exists
+# End docker download, instalation and configuration
+
+
+
+### Checkout and start the application
+  - name: Checkout Project
+    ansible.builtin.git:
+      repo: 'https://github.com/LeonardoDG2084/iaac_slacko-api.git'
+      dest: /opt/slacko-api
+      version: master
+
+  - name: Install Python Requiments
+    pip:
+      requirements: /opt/slacko-api/requeriments.txt
+
+  - name: Create slacko Api Service
+    copy:
+      src: slacko-api.service
+      dest: /etc/systemd/system
+      owner: root
+      group: root
+
+  - name: Start Slacko Api Service
+    ansible.builtin.service:
+      name: slacko-api
+      state: started
+      enabled: yes
+
+  - name: Move Docker-compose File
+    copy:
+      src: docker-compose.yaml
+      dest: /opt/slacko-api
+  
+  - name: Install Docker Ansible SDK
+    pip:
+      name: 'docker==4.4.4'
+
+  - name: Install Docker-compose Ansible SDK
+    pip:
+      name: 'docker-compose'
+
+  - name: Run Docker Service
+    docker_compose:
+      project_src: /opt/slacko-api
+      build: yes
+    register: output
+
+  - debug:
+      var: output
+
+  - name: Run App Script
+    shell: /opt/slacko-api/slacko-api.sh >> /opt/slacko-api/slacko-api.log &
+  
+  - name: Smoke Test
+    shell: curl http://10.0.0.11:8000/healthcheck
+
+  
+
+
