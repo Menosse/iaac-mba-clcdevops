@@ -40,7 +40,11 @@ Após salvar o arquivo reiniciar o serviço do sshd
 > sudo systemctl restart ssh
 
 
-## passo 
+## passo 1 - Rodar o playbook de instalacao da aplicacao
+> cd ansible_slackio/
+> ansible-playbook playbook.yml 
+
+
 ## passo 2 - 
 ## passo 3 - 
 ## passo 4 - 

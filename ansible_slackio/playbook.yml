@@ -13,7 +13,7 @@
   - name: Upgrade all apt packages
     apt: upgrade=dist
 
-  - name: Install dependencies
+  - name: Install docker dependencies
     apt:
       name: "{{ packages }}"
       state: present
