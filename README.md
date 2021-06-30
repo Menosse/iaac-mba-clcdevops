@@ -21,11 +21,9 @@ Abra um novo terminal
 > sudo sh server.sh
 
 ## Criar chave ssh e permitir o acesso da maquina iaac na maquina server
-Na maquina iaac
+Na maquina iaac e Copiar a chave
 > ssh-keygen
 > cat /home/vagrant/.ssh/id_rsa.pub
-
-Copiar a chave
 
 Entrar na maquina server e colar o conteúdo a chave arquivo no arquivo /home/vagrant/.ssh/authorized_keys
 
