@@ -53,16 +53,4 @@ Após salvar o arquivo reiniciar o serviço do sshd
 ## passo 2 - Rodar o playbook de instalacao da aplicacao
 > cd ansible_slackio/
 
-> ansible-playbook playbook.yml 
-
-
-## passo 2 - 
-## passo 3 - 
-## passo 4 - 
-## passo 6 - 
-## passo 7 - 
-## passo 8 - 
-## passo 9 - 
-## passo 10 - 
-## passo 11 - 
-## passo 12 - 
+> ansible-playbook playbook.yml
