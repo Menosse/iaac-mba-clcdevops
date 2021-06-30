@@ -11,7 +11,8 @@
 #### Script de inicializacao Maquina iaac
 Abra um novo terminal
 > vagrant ssh iaac
- cd /vagrant
+
+> cd /vagrant
 
 > sudo sh iaac.sh
 
