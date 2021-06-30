@@ -18,7 +18,7 @@ Abra um novo terminal
 
 > sudo sh iaac.sh
 
-### Exportar o ansible.cfg nas maquinas
+#### Exportar o ansible.cfg nas maquinas
 > export ANSIBLE_CONFIG="./ansible.cfg"
 
 #### Script de inicializacao Maquina server
