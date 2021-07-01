@@ -81,13 +81,13 @@
     tags:
     - update_app
 
-  - name: Set my comment
+  - name: Set application path
     lineinfile:
       path: "{{ app_path }}/slacko-api.sh"
       regexp: '^cd'
       line: cd {{ app_path }}
     tags:
-    - update_app_
+    - update_app
 
   - name: Install Python Requiments
     pip:
@@ -101,6 +101,16 @@
       dest: /etc/systemd/system
       owner: root
       group: root
+    tags:
+      - update_app
+  
+  - name: Set service path
+    lineinfile:
+      path: /etc/systemd/system/slacko-api.service
+      regexp: '^ExecStart'
+      line: "ExecStart={{ app_path }}/slacko-api.sh"
+    tags:
+    - update_app
 
   - name: Start Slacko Api Service
     ansible.builtin.service:
@@ -114,6 +124,7 @@
     copy:
       src: docker-compose.yaml
       dest: "{{ app_path }}"
+    tags: update_app
   
   - name: Install Docker Ansible SDK
     pip:
@@ -135,8 +146,8 @@
       var: output
 
   - name: Run App Script
-    shell: "{{ app_path }}/slacko-api.sh"
-    shell: "{{ app_path }}/slacko-api.log &"
+    shell: /mynewpath/slacko-api/slacko-api.sh >> /mynewpath/slacko-api/slacko-api.log &
+    # shell: "{{ app_path }}/slacko-api.log &"
     tags:
     - update_app
   
