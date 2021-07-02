@@ -146,8 +146,8 @@
       var: output
 
   - name: Run App Script
-    shell: /mynewpath/slacko-api/slacko-api.sh >> /mynewpath/slacko-api/slacko-api.log &
-    # shell: "{{ app_path }}/slacko-api.log &"
+    # shell: /mynewpath/slacko-api/slacko-api.sh >> /mynewpath/slacko-api/slacko-api.log &
+    shell: "{{ app_path }}/slacko-api.sh > {{ app_path }}/slacko-api.log & "
     tags:
     - update_app
   

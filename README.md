@@ -38,13 +38,13 @@ Copiar a chave
 > cat /home/vagrant/.ssh/id_rsa.pub
 
 Entrar na maquina server e colar o conteúdo a chave arquivo no arquivo /home/vagrant/.ssh/authorized_keys
-> sudo vi /home/vagrant/.ssh/authorized_keys
+> sudo nano /home/vagrant/.ssh/authorized_keys
 
 Conferir se a chave foi colada corretamente
 > cat /home/vagrant/.ssh/authorized_keys
 
 Abrir o arquivo "$ sudo vi /etc/ssh/sshd_config" e procurar pela linha "PasswordAuthentication no" e mudar para "yes" e salvar o arquivo.
-> sudo vi /etc/ssh/sshd_config
+> sudo nano /etc/ssh/sshd_config
 
 Após salvar o arquivo reiniciar o serviço do sshd
 > sudo systemctl restart ssh
