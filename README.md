@@ -55,3 +55,6 @@ Após salvar o arquivo reiniciar o serviço do sshd
 > cd ansible_slackio/
 
 > ansible-playbook playbook.yml
+
+### Para atualizar a aplicacao
+> ansible-playbook playbook.yml --tags update_app
